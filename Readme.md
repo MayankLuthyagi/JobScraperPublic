@@ -29,8 +29,16 @@ The scraper fetches:
 
    Example configuration:
    ```yaml
-   api_key: YOUR_GEMINI_API_KEY
-   target_url: https://example.com/jobs
+    {
+      "general": {
+        "api_key": "",
+        "gemini_model": "gemini-1.5-flash"
+      },
+      "data_urls": {
+        "urls": [
+        ]
+      }
+    }
    ```  
 
 ---
