@@ -4,8 +4,12 @@ import time
 from bs4 import BeautifulSoup
 import google.generativeai as genai
 import json
-# Streamlit UI
 
+# Load configuration from config.json
+with open('config.json', 'r') as f:
+    config = json.load(f)
+
+# Streamlit UI
 
 # Create two columns with equal height and width
 col1, col2 = st.columns([4, 1])  # Create two columns with a 3:1 ratio
@@ -17,7 +21,6 @@ with col2:
     # Use st.image with the desired width for the image
     st.image("https://i.pinimg.com/originals/66/2c/da/662cda1ea6bdac6afb16973961c2c8d1.gif", width=100)
 
-
 # Number of jobs to fetch (between 1 and 20)
 num_jobs = st.sidebar.slider("Number of Jobs to Display", min_value=1, max_value=20, step=1, key="num_jobs")
 
@@ -27,18 +30,13 @@ start_scraping = st.sidebar.button("Start Scraping")
 # Add some spacing
 st.divider()  # Optional: Adds a horizontal line for visual separation
 
-# Load secrets securely
-try:
-    api_key = st.secrets["general"]["api_key"]
-    gemini_model = st.secrets["general"]["gemini_model"]
-    data_urls = st.secrets["data_urls"]["urls"]
-    apply_links = st.secrets["apply_links"]["links"]
-except KeyError as e:
-    st.error(f"Missing key in secrets: {e}")
-    st.stop()
+# Load secrets from config
+api_key = config["general"]["api_key"]
+gemini_model = config["general"]["gemini_model"]
+data_urls = config["data_urls"]["urls"]
 
 if not api_key:
-    st.error("API key is missing in secrets.")
+    st.error("API key is missing in config.json.")
     st.stop()
 
 genai.configure(api_key=api_key)
@@ -79,7 +77,6 @@ def fetch_jobs(url, num_jobs):
                     html_content = str(soup)
 
                     # Generate content using generative AI
-
                     data = model.generate_content(f'''
                         Given the following HTML content from two sources:
                         html_content = {html_content}
@@ -149,7 +146,7 @@ num_jobs_url2 = num_jobs - num_jobs_url1
 # Check if the button is clicked
 if start_scraping:
     if not data_urls:
-        st.error("No data URLs found in secrets.")
+        st.error("No data URLs found in config.json.")
     else:
         try:
             # Fetch jobs from both URLs

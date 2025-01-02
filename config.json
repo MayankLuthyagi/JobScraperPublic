@@ -1,0 +1,10 @@
+{
+  "general": {
+    "api_key": "",
+    "gemini_model": "gemini-1.5-flash"
+  },
+  "data_urls": {
+    "urls": [
+    ]
+  }
+}
