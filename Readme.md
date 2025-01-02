@@ -1,5 +1,5 @@
 # **Job Scraper**
-**[Live Demo: Job Scraping App](https://jobscraping.streamlit.app/)**
+**[Live Demo: Job Scraping App](https://job-finder.streamlit.app/)**
 
 If the demo link does not work, it means I am upgrading the project.
 ---
@@ -71,7 +71,7 @@ http://localhost:8501
 ---
 
 ## **Live Application**
-**Try it now**: [Job Scraping App](https://jobscraping.streamlit.app/)
+**Try it now**: [Job Scraping App](https://job-finder.streamlit.app/)
 
 ---
 
